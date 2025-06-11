@@ -2,29 +2,32 @@
 
 <div align="center">
   <div align="center">
-  <a href="https://pytorch.org/">
-    <img src="https://img.shields.io/badge/PyTorch-%3E=v2.0.1-EE4C2C.svg?style=flat-square" alt="PyTorch>=v2.0.1">
-  </a>
-  <a>
-    <img alt="evaclip" src="https://img.shields.io/badge/model-evaclip-yellow">
-  </a>
-  <a>
-    <img alt="openclip" src="https://img.shields.io/badge/model-openclip-green">
-  </a>
-  <a>
-    <img alt="internvl" src="https://img.shields.io/badge/model-internvl-blue">
-  </a>
-  <a>
-    <img alt="swint" src="https://img.shields.io/badge/model-swintransformer-pink">
-  </a>
-  <a>
-    <img alt="dinov2" src="https://img.shields.io/badge/model-dinov2-red">
-  </a>
+      <a href="https://pytorch.org/">
+        <img src="https://img.shields.io/badge/PyTorch-%3E=v2.0.1-EE4C2C.svg?style=flat-square" alt="PyTorch>=v2.0.1">
+      </a>
+      <a>
+        <img alt="evaclip" src="https://img.shields.io/badge/model-evaclip-yellow">
+      </a>
+      <a>
+        <img alt="openclip" src="https://img.shields.io/badge/model-openclip-green">
+      </a>
+      <a>
+        <img alt="internvl" src="https://img.shields.io/badge/model-internvl-blue">
+      </a>
+      <a>
+        <img alt="swint" src="https://img.shields.io/badge/model-swintransformer-pink">
+      </a>
+      <a>
+        <img alt="dinov2" src="https://img.shields.io/badge/model-dinov2-red">
+      </a>
+    </div>
+    <p align="center">
+    <img width="100%" alt="image" src="images/overview.png">    
+    </p>
 </div>
-<p align="center">
-<img width="100%" alt="image" src="images/overview.png">    
-</p>
-</div>
+
+
+
 [[Paper](https://arxiv.org/abs/2506.08591)]    [[BibTex](#Citation)]   [[HuggingFace](https://huggingface.co/visresearch/DGMR/tree/main)]
 
 Large-scale model parameters lead to an unaffordable cost of computing and memory. We analyze popular transformer architectures and find that multilayer perceptron (MLP) modules take up the majority of model parameters. To this end, we focus on the recoverability of the compressed models and propose a Diversity-Guided MLP Reduction (DGMR) method to significantly reduce the parameters of large vision transformers with only negligible performance degradation. 
