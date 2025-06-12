@@ -42,7 +42,13 @@ pip install -r requirement.txt
 
 
 
-### 2. Prune
+### 2. Configuration
+
+
+
+
+
+### 3. MLP Reduction
 
 ```bash
 python prune.py --prune_method diversity \
@@ -54,7 +60,7 @@ python prune.py --prune_method diversity \
 
 
 
-### 3. Distill
+### 4. Distillation
 
 ```bash
 torchrun \
@@ -66,7 +72,7 @@ torchrun \
 
 
 
-### 4. Evaluation
+### 5. Evaluation
 
 + **Zero-Shot Classification On ImageNet1K**
 
@@ -83,9 +89,7 @@ torchrun --nnodes=1 --nproc_per_node=$NGPU --master-port=29502 \
     --dataset_root  /path/to/ILSVRC2012
 ```
 
-**Tips**: At the first evaluation, you are required to pass the `save_clf` parameter, so the text encoding for zero-shot classification will be saved (e.g. `text_classifier_weight+clip8b_imagenet1k.pth`). 
-
-For latter evaluation, you can pass the `load_clfs` parameter of the value of previous `save_clf` to skip the running of text encoder.
+**Tips**: At the first evaluation, you are required to pass the `save_clf` parameter, so the text encoding for zero-shot classification will be saved.  For latter evaluation, you can set the `load_clfs` parameter as the previous `save_clf` to skip the running of text encoder.
 
 
 
@@ -142,14 +146,14 @@ torchrun --nnodes=1 --nproc_per_node=$NGPU --master-port=29502 \
 
 
 
-### 5. Finetuning Text Encoder
+### 6. Finetuning Text Encoder
 
 The pruning and distilling is only for vision encoder, it must change the feature map, so we want to finetune the text encoder to let the model run at full health.
 
 ```bash
 NGPU=$(nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)
 
-torchrun --nnodes=1 --nproc_per_node=$cuda_count --master-port=29501 \
+torchrun --nnodes=1 --nproc_per_node=$NGPU --master-port=29501 \
 	finetune.py \
 	--config_file $config_file \
 	--frame eva_clip
@@ -157,18 +161,20 @@ torchrun --nnodes=1 --nproc_per_node=$cuda_count --master-port=29501 \
 
 
 
-### 6. Model Zoo
+### 7. Model Zoo
 
 + **Distillation for Vision Encoder**
 
 |     Arch     | weights | zero-shot classification | zero-shot retrival | KNN |
 |:------------:|:------------:|:------------------------:|:------------------:|:---:|
-|ViT-g-14 (original)  |  [link]() |  73.0%  | 83.8% | 81.7% |
-|ViT-g-14-prune1 (ours)  |  [link]() |  73.0%  | 83.8% | 81.9% |
-|ViT-g-14-prune2 (ours)   |[link]() |  73.2%  | 84.1% | 82.1% |
-|EVA02-CLIP-bigE-14-plus (original)   |  [link](https://huggingface.co/QuanSun/EVA-CLIP/blob/main/EVA02_CLIP_E_psz14_plus_s9B.pt) |  80.9% | 85.2% | 85.8% |
-|EVA02-CLIP-bigE-14-plus-prune1 (ours)   |  [link]() |  81.0% | 85.2% | 85.7% |
-|EVA02-CLIP-bigE-14-plus-prune2 (ours)   |[link]() |  81.1%  | 85.3% | 85.8% |
+|ViT-g-14 (original)  | [Link](https://huggingface.co/laion/CLIP-ViT-g-14-laion2B-s34B-b88K) |  73.0%  | 83.8% | 81.7% |
+|**ViT-g-14-prune1 (ours)**  | [Link](https://huggingface.co/visresearch/DGMR/tree/main/ViT-g-14-prune1/distill.pth) |  73.0%  | 83.8% | 81.9% |
+|**ViT-g-14-prune2 (ours)**   |[Link](https://huggingface.co/visresearch/DGMR/tree/main/ViT-g-14-prune2/distill.pth) |  73.2%  | 84.1% | 82.1% |
+|EVA02-CLIP-bigE-14-plus (original)   |  [Link](https://huggingface.co/QuanSun/EVA-CLIP/blob/main/EVA02_CLIP_E_psz14_plus_s9B.pt) |  80.9% | 85.2% | 85.8% |
+|**EVA02-CLIP-bigE-14-plus-prune1 (ours)**   | [Link](https://huggingface.co/visresearch/DGMR/tree/main/EVA02-CLIP-bigE-14-plus-prune1/distill.pth) |  81.0% | 85.2% | 85.7% |
+|**EVA02-CLIP-bigE-14-plus-prune2 (ours)**   |[Link](https://huggingface.co/visresearch/DGMR/tree/main/EVA02-CLIP-bigE-14-plus-prune2/distill.pth) |  81.1%  | 85.3% | 85.8% |
+|DINO v2 (original) |[Link](https://dl.fbaipublicfiles.com/dinov2/dinov2_vitg14/dinov2_vitg14_pretrain.pth) | / | / | 83.5% |
+|**DINO v2 (ours)** |[Link](https://huggingface.co/visresearch/DGMR/tree/main/dinov2/distill.pth) | / | / | 83.5% |
 
 
 
@@ -177,12 +183,12 @@ torchrun --nnodes=1 --nproc_per_node=$cuda_count --master-port=29501 \
 
 |     Arch     | weights | zero-shot classification | zero-shot retrival |
 |:------------:|:------------:|:------------------------:|:------------------:|
-|ViT-g-14 (original)  |  [link]() |  73.0%  | 83.8% |
-|**ViT-g-14-prune1 (ours)**  |  [link]() |  73.0%  | 84.0% |
-|**ViT-g-14-prune2 (ours)**   |[link]() |  73.1%  | 84.3% |
-|EVA02-CLIP-bigE-14-plus (original)   |  [link](https://huggingface.co/QuanSun/EVA-CLIP/blob/main/EVA02_CLIP_E_psz14_plus_s9B.pt) |  80.9% | 85.2% |
-|**EVA02-CLIP-bigE-14-plus-prune1 (ours)**   |  [link]() |  81.0% | 86.1% |
-|**EVA02-CLIP-bigE-14-plus-prune2 (ours)**   |[link]() |  81.1%  | 86.3% |
+|ViT-g-14 (original)  | [Link](https://huggingface.co/laion/CLIP-ViT-g-14-laion2B-s34B-b88K) |  73.0%  | 83.8% |
+|**ViT-g-14-prune1 (ours)**  | [Link](https://huggingface.co/visresearch/DGMR/tree/main/ViT-g-14-prune1/ft.pth) |  73.0%  | 84.0% |
+|**ViT-g-14-prune2 (ours)**   |[Link](https://huggingface.co/visresearch/DGMR/tree/main/ViT-g-14-prune1/ft.pth) |  73.1%  | 84.3% |
+|EVA02-CLIP-bigE-14-plus (original)   |  [Link](https://huggingface.co/QuanSun/EVA-CLIP/blob/main/EVA02_CLIP_E_psz14_plus_s9B.pt) |  80.9% | 85.2% |
+|**EVA02-CLIP-bigE-14-plus-prune1 (ours)**   | [Link](https://huggingface.co/visresearch/DGMR/tree/main/EVA02-CLIP-bigE-14-plus-prune1/ft.pth) |  81.0% | 86.1% |
+|**EVA02-CLIP-bigE-14-plus-prune2 (ours)**   |[Link](https://huggingface.co/visresearch/DGMR/tree/main/EVA02-CLIP-bigE-14-plus-prune2/ft.pth) |  81.1%  | 86.3% |
 
 
 
