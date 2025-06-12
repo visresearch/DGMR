@@ -1,0 +1,5 @@
+
+
+model:
+  arch: ViT-g-14-prune
+  pretrained: /path/to/model

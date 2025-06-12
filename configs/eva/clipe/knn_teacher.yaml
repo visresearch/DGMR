@@ -1,0 +1,30 @@
+
+model:
+    embed_dim: 1024
+    vision_cfg:
+        arch: EVA02-CLIP-bigE-14-plus
+        image_size: 224
+        layers: 64
+        width: 1792
+        head_width: 112
+        mlp_ratio: 8.571428571428571
+        patch_size: 14
+        eva_model_name: eva-clip-4b-14-x
+        drop_path_rate: 0
+        xattn: true
+        fusedLN: true
+        use_rms_norm: false
+        global_average_pool: false
+        rope: false
+        postnorm: true
+        pt_hw_seq_len: 16
+        intp_freq: false
+        naiveswiglu: false
+        subln: false
+        ls_init_value: 
+        patch_dropout: 0
+        qkv_bias: true
+        
+    weight: /path/to/EVA02_visual_E_psz14_plus_s9B.pth
+
+

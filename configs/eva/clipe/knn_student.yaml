@@ -1,0 +1,33 @@
+
+model:
+    embed_dim: 1024
+    vision_cfg:
+        arch: EVA02-CLIP-bigE-14-plus
+        image_size: 224
+        layers: 64
+        width: 1792
+        head_width: 112
+        mlp_ratio: 1
+        patch_size: 14
+        eva_model_name: eva-clip-4b-14-x
+        drop_path_rate: 0
+        xattn: true
+        fusedLN: true
+        use_rms_norm: false
+        global_average_pool: false
+        rope: false
+        postnorm: true
+        pt_hw_seq_len: 16
+        intp_freq: false
+        naiveswiglu: false
+        subln: false
+        ls_init_value: 
+        patch_dropout: 0
+        qkv_bias: true
+
+    block_ids: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]]
+    pruned_hidden_sizes: [1792]
+        
+    weight: /path/to/pruned_model
+
+    

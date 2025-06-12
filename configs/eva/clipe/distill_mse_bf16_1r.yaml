@@ -1,0 +1,40 @@
+
+teacher:
+  arch: EVA02-CLIP-bigE-14-plus
+  pretrained: /path/to/EVA02_visual_E_psz14_plus_s9B.pth
+
+student:
+  arch: EVA02-CLIP-bigE-14-plus-prune1
+  pretrained: /path/to/EVA02_visual_E_psz14_plus_s9B_prune.pth
+
+data:
+    root: /path/to/ILSVRC2012
+    input_size: 224
+    min_crop: 0.2
+    batch_size_per_gpu: 40
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 2
+    # mixed_data: true
+
+optim:
+    loss: mse
+    pure_bf16: true
+    float: false
+    step_interval: 1
+
+    use_ema: false
+    ema_decay: 0.997
+    base_lr: 6.0e-05
+    min_lr: 1.0e-06
+
+    use_lr_scheduler: true
+    use_wd_scheduler: true
+    
+    weight_decay: 0.04
+    weight_decay_end: 0.2
+
+
+    nepochs: 10
+    warmup_epochs: 2
+

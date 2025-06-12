@@ -44,7 +44,9 @@ pip install -r requirement.txt
 
 ### 2. Configuration
 
+For convenience,  we organize the hyper-parameters in `*.yaml` files at path `./configs`.  To run the code, please edit these parameters according to your environment. 
 
+For the distillation of pruned Open CLIP models, you are required to set `teacher.pretrained`, `student.pretrained`, `data.root` at configuration file `configs/open_clip/distill_openclip.yaml`.
 
 
 
@@ -52,10 +54,10 @@ pip install -r requirement.txt
 
 ```bash
 python prune.py --prune_method diversity \
-      --arch {model_arch} \
-      --pretrained {model_path} \
+      --arch $model_arch \
+      --pretrained $model_path \
       --mlp_ratio 1 \
-      --output_path {output_path}
+      --output_path $output_path
 ```
 
 
@@ -63,11 +65,12 @@ python prune.py --prune_method diversity \
 ### 4. Distillation
 
 ```bash
+NGPU=$(nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)
 torchrun \
-    --nproc_per_node=8 \
+    --nproc_per_node=$NGPU \
     --master-port=29511 distill.py \
     --config_file /path/to/config \
-    --frame eva_clip
+    --frame $frame
 ```
 
 

@@ -1,0 +1,19 @@
+
+model:
+    arch: vit_giant2
+    patch_size: 14
+    layerscale: 1.0e-05
+    ffn_layer: swiglufused
+    block_chunks: 0
+    qkv_bias: true
+    proj_bias: true
+    ffn_bias: true
+    num_register_tokens: 0
+    interpolate_antialias: false
+    interpolate_offset: 0.1
+
+    input_size: 518
+    weight: /path/to/model
+
+
+

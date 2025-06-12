@@ -1,0 +1,50 @@
+train:
+  batch_size_per_gpu: 16
+  dataset_path: ImageNet1k
+
+student:
+  arch: vit_giant2
+  patch_size: 14
+  drop_path_rate: 0.4
+  ffn_layer: swiglufused
+  # block_chunks: 4
+  block_chunks: 5
+  pretrained_weights: './out/dinov2_multi_stage/32-39_1+24-31_1024+16-23_1536+8-15_1536+0-7_1536/dinov2_vitg14_pretrain_prune.pth'
+  block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], [24, 25, 26, 27, 28, 29, 30, 31], [16, 17, 18, 19, 20, 21, 22, 23], [8, 9, 10, 11, 12, 13, 14, 15], [0, 1, 2, 3, 4, 5, 6, 7]]
+  pruned_hidden_sizes: [1, 1024, 1536, 1536, 1536]
+
+teacher:
+  pretrained_weights: './out/dinov2_part/32-39_768/dinov2_vitg14_pretrain_prune.pth'
+  block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], ]
+  pruned_hidden_sizes: [768]
+
+# optim:
+#   epochs: 10
+#   weight_decay_end: 0.2
+#   base_lr: 2.0e-04
+#   warmup_epochs: 2
+#   layerwise_decay: 1.0
+
+# optim:
+#   epochs: 50
+#   weight_decay_end: 0.2
+#   base_lr: 2.0e-04
+#   warmup_epochs: 10
+#   layerwise_decay: 1.0
+
+# optim:
+#   epochs: 25
+#   weight_decay_end: 0.2
+#   base_lr: 5.0e-04 # 相较于2.0e-04，变差
+#   warmup_epochs: 5
+#   layerwise_decay: 1.0
+
+optim:
+  epochs: 25
+  weight_decay_end: 0.2 # remove weight decay scheduler
+  base_lr: 2.0e-04
+  warmup_epochs: 5
+  layerwise_decay: 1.0
+
+crops:
+  global_crops_size: 518  # this is to set up the position embeddings properly

@@ -1,0 +1,46 @@
+student:
+  arch: vit_giant2
+  patch_size: 14
+  ffn_layer: swiglufused
+  # mlp_hidden_size: 1196
+
+  block_ids: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]]
+  pruned_hidden_sizes: [1536]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], [24, 25, 26, 27, 28, 29, 30, 31], [16, 17, 18, 19, 20, 21, 22, 23], [8, 9, 10, 11, 12, 13, 14, 15], [0, 1, 2, 3, 4, 5, 6, 7]]
+  # pruned_hidden_sizes: [1, 1024, 1536, 1536, 1536]
+  # pruned_hidden_sizes: [768, 1536, 1536, 1536, 1536]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], [24, 25, 26, 27, 28, 29, 30, 31], [16, 17, 18, 19, 20, 21, 22, 23], [8, 9, 10, 11, 12, 13, 14, 15]]
+  # pruned_hidden_sizes: [1, 1024, 1536, 1536]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], [24, 25, 26, 27, 28, 29, 30, 31], [16, 17, 18, 19, 20, 21, 22, 23]]
+  # pruned_hidden_sizes: [1, 1024, 1536]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], [28, 29, 30, 31]]
+  # pruned_hidden_sizes: [1, 1536]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], [30, 31]]
+  # pruned_hidden_sizes: [1, 1536]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], [28, 29, 30, 31]]
+  # pruned_hidden_sizes: [1, 256]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], [24, 25, 26, 27, 28, 29, 30, 31]]
+  # pruned_hidden_sizes: [1, 1024]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], [24, 25, 26, 27, 28, 29, 30, 31]]
+  # pruned_hidden_sizes: [1, 512]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], ]
+  # pruned_hidden_sizes: [768]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], ]
+  # pruned_hidden_sizes: [1024]
+
+  # block_ids: [[32, 33, 34, 35, 36, 37, 38, 39], ]
+  # pruned_hidden_sizes: [256]
+
+crops:
+  global_crops_size: 518  # this is to set up the position embeddings properly
+  local_crops_size: 98

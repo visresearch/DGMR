@@ -1,0 +1,31 @@
+
+model:
+    arch: EVA02-CLIP-bigE-14-plus-prune2
+    pretrained: /path/to/model
+
+
+data:
+    root: /path/to/ILSVRC2012
+    input_size: 224
+    min_crop: 0.2
+    batch_size_per_gpu: 280
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 2
+    # mixed_data: true
+
+optim:
+
+    base_lr: 1.0e-06
+    min_lr: 1.0e-07
+
+    use_lr_scheduler: true
+    use_wd_scheduler: true
+    
+    weight_decay: 0.04
+    weight_decay_end: 0.2
+
+
+    nepochs: 30
+    warmup_epochs: 3
+

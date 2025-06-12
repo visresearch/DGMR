@@ -1,0 +1,21 @@
+
+model:
+    arch: vit_giant2
+    patch_size: 14
+    layerscale: 1.0e-05
+    ffn_layer: swiglufused
+    block_chunks: 0
+    qkv_bias: true
+    proj_bias: true
+    ffn_bias: true
+    num_register_tokens: 0
+    interpolate_antialias: false
+    interpolate_offset: 0.1
+
+    input_size: 518
+    weight: /path/to/pruned_model
+
+    block_ids: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]]
+    pruned_hidden_sizes: [1536]
+
+

@@ -1,0 +1,45 @@
+
+teacher:
+  arch: ViT-g-14
+  pretrained: /path/to/OpenCLIP_ViT-G_14/open_clip_pytorch_model.bin
+
+student:
+  arch: ViT-g-14-prune
+  pretrained: /path/to/pruned_model
+  
+data:
+    root: /path/to/ILSVRC2012
+    input_size: 224
+    min_crop: 0.2
+    batch_size_per_gpu: 40
+    # batch_size_per_gpu: 32 # ema
+    # batch_size_per_gpu: 16
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 2
+    # mixed_data: true
+
+optim:
+    loss: mse
+    # distribute_strategy: fsdp
+    pure_bf16: true
+    float: false
+    step_interval: 1
+
+    use_ema: false
+    ema_decay: 0.997
+    base_lr: 1.0e-04
+    min_lr: 1.0e-06
+    cls_coef: 1
+    feat_coef: 1
+    nepochs: 10
+    warmup_epochs: 1
+
+    use_lr_scheduler: true
+    use_wd_scheduler: true
+    
+    weight_decay: 0.04
+    weight_decay_end: 0.2
+
+
+
